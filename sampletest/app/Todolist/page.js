@@ -1,12 +1,11 @@
 "use client";
 import React, { useState, useEffect} from 'react';
 import "./styles.css";
-import { AiFillDelete,  } from 'react-icons/ai';
+import { AiFillDelete  } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
-import { BsCheckAll,   } from 'react-icons/bs';
+import { BsCheckAll   } from 'react-icons/bs';
 import { LiaSaveSolid } from 'react-icons/lia';
-
-
+ 
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
@@ -15,6 +14,7 @@ const TodoList = () => {
     const [editTodo, setEditTodo] = useState('');
     const [filter, setFilter] = useState('All');
     const [completedCount, setCompletedCount] = useState(0);
+    const [showFilterOptions, setShowFilterOptions] = useState(false);
   
     const handleInputChange = (e) => {
       setnewTasks(e.target.value);
@@ -53,8 +53,10 @@ const TodoList = () => {
       }
     };
     const handleDeleteAll = () => {
-      setTodos([]);
+      const incompleteTasks = todos.filter((todo) => !todo.completed);
+      setTodos(incompleteTasks);
     };
+    
      
     const handleCompleteAll = () => {
       const updatedTodos = todos.map((todo) => ({
@@ -81,36 +83,44 @@ const TodoList = () => {
       } else if (filter === 'Uncompleted') {
         return !todo.completed;
       }
-      return false;
+      return true;
     });
   
+    const handleFilterButtonClick = () => {
+      setShowFilterOptions((prevShowFilterOptions) => !prevShowFilterOptions);
+    };
 
   return (
-        <div className='container-center'>
-            <h2>
+        <div className='container'>
+            <div className='todoapp'></div>
+            <h2>    
                 Todo List  
             </h2> 
+
             <div className="row">
                 <input
                   type="text"
                   value={newTasks}
+                  className='add-task'
                   onChange={handleInputChange}
                   placeholder="Add your todo "/> 
-                  <button id="btn" onClick={handleAddTodo} >Add Todo</button>
+                  <button id="btn" onClick={handleAddTodo} alt= " " className='bg-green-300'>Update</button>
             </div>
 
-            <div className="mid">
+            <div className="mid"> 
+               
               <h3 style={{  fontWeight : "900px", }}>< BsCheckAll size={30}/></h3>
 
-                  <p  id="complete-all"  onClick={handleCompleteAll}> Complete All Tasks</p>
+                  <p  id="complete-all"  onClick={handleCompleteAll}  > Complete All Tasks</p>
                   <p id="clear-all" onClick={handleDeleteAll}>Delete Comp Tasks</ p>
                
              
             </div>
-            <ul>
-                {todos.map((todo, index) => (
+            <ul >  
+            {filteredTodos.map((todo, index) => (
                   <li key={index}>
-                    <input type="checkbox" className="custom-checkbox" 
+                    <input type="checkbox" alt=''
+                      className="custom-checkbox" 
                       checked={todo.completed}
                       onChange={() => {
                       const updatedTodos = [...todos];
@@ -120,34 +130,34 @@ const TodoList = () => {
                       };
                       setTodos(updatedTodos);
                       }}
-                    />
+                    />  
                         {editIndex === index ? (
                         <input
-                            type="text"
-                            value={editTodo} className='custom-checkbox'
+                            type="text" alt='' 
+                            value={editTodo} className='custom-checkbox' 
                             onChange={(e) => setEditTodo(e.target.value)}
                         />
                         ) : (
 
                         todo.text
                         )}
-                        <button onClick={() => handleDeleteTodo(index)}>
-                          <h3 className='delete-icon'> 
+                        <button onClick={() => handleDeleteTodo(index)} alt='' >
+                          <h3 className='delete-icon ' > 
                             < AiFillDelete /> 
                           </h3>
                         </button>
                         
                         {editIndex === index ? (
-                        <button onClick={handleUpdateTodo}> 
-                          <h3 className='save-icon'>
+                        <button onClick={handleUpdateTodo} alt=''  > 
+                          <h3 className='save-icon '>
                             <LiaSaveSolid />
                           </h3>
                         </button>
                         
                         ) : (
 
-                        <button onClick={() => handleEditTodo(index)}>
-                           <h3 className='edit-icon'> 
+                        <button onClick={() => handleEditTodo(index)} alt='' >
+                           <h3 className='edit-icon '> 
                               < MdEdit /> 
                             </h3>
                         </button>
@@ -156,34 +166,65 @@ const TodoList = () => {
                     </li>
                 ))}
             </ul> 
-                        <div className='Filters' />
-                          <div className='dropdown' />
-                            <button className='dropbtn'>
-                              Filter
-                            </button>
-                            <div className='dropdown-content' >
-                              <a href='#'  onClick={() => handleFilterChange('All')}>
-                                  All</a>
-                              <a href='#' onClick={() => handleFilterChange('Uncompleted')}>
-                                  Uncompleted</a>
-                              <a href='#'  onClick={() => handleFilterChange('Completed')}>
-                                  Completed </a>
-                            </div>
-                            <div className='completed-task'>
-                              <p>Completed : 
-                                  <span id='complete-count'>{completedCount}</span>
-                              </p>
-                            </div>
-                            <div className='remaning-task'>
-                                <p>
-                                    <span id='tasks-counter'>{todos.length - completedCount}</span>
-                                </p>
-                            </div>
-                          
+                    <div className='Filters'></div>
+                        <div className='dropdown'>
+                            <button
+                                className={`dropbtn ${showFilterOptions ? 'active' : ''}`}
+                                onClick={handleFilterButtonClick}
+                                onMouseEnter={() => setShowFilterOptions(true)}
+                                // onMouseLeave={() => setShowFilterOptions(false)}
+                                > Filter
+                              </button>
+                              </div>
+                                
+                              <div className={`dropdown-content ${showFilterOptions ? 'show' : ''}`} 
+                              style={{ display: showFilterOptions ? 'block' : 'none', maxHeight: '200px', overflowY: 'auto' }}>
+                                  
+                                  <div className="dropdown-scroll" />
+                                  <a  
+                                      href="#"
+                                      onClick={() => {
+                                        handleFilterChange('All');
+                                        setShowFilterOptions(false);  
+                                      }}
+                                      className={filter === 'All' ? 'active' : ''}
+                                    >
+                                      All
+                                    </a>
+                                  <a
+                                      href='#'
+                                      onClick={() => {
+                                      handleFilterChange('Uncompleted')
+                                      setShowFilterOptions(false);
+                                      }}
+                                      className={filter === 'Uncompleted' ? 'active' : ''}>
+                                   
+                                      Uncompleted
+                                    </a>
+                                  <a
+                                      href='#'
+                                      onClick={() => {
+                                      handleFilterChange('Completed')
+                                      setShowFilterOptions(false); 
+                                      }}
+                                      className={filter === 'Completed' ? 'active' : ''}
+                                    >
+                                      Completed
+                                  </a>
+                                </div>
 
-           
- 
-        </div>
+                                  
+                              <div className='completed-task'>
+                                  <p>Completed : 
+                                      <span id='complete-count'>{completedCount}</span>
+                                  </p>
+                              </div>
+                              <div className='remaning-task'>
+                                  <p> Total-Tasks :
+                                      <span id='tasks-counter'>{todos.length - completedCount}</span>
+                                  </p>
+                              </div>
+            </div>
   );
 }
 
