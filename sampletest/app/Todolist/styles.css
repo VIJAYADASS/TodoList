@@ -13,7 +13,7 @@ body{
     width: 30%;
     justify-content:space-between;
     height: 60%;
-    border-radius: 12px;
+    border-radius: 10px;
     margin-top: 50px;
 
 
@@ -122,21 +122,25 @@ ul li{
     width: 30px;
     height: 30px;
      
-}
+} 
 .edit-icon{
-    display:inline-flex;
+    display:flex;
     align-items:  center;
     justify-content:  flex-end ;
     width: 30px;
     height: 30px;
     
 }
+.edit-icon:not(.active) + button,
+.save-icon:not(.active) + button {
+  display: none;
+}
+
 .Filters{
     margin-top: 20px;
 
 }
 
- 
 .dropdown{
     display: inline-block;
     width: 10px;
@@ -153,6 +157,8 @@ ul li{
     font-size: 14px;
     padding: 10px 15px;
     width: 60px;
+    margin-left:initial;
+    margin-bottom: 6px;
      
 }
 .dropdown-content a.active{
@@ -172,15 +178,15 @@ ul li{
     display: block;
     padding: 8px 16px;
     text-decoration: none;
-    color: #333;
+    color: black;
+    
+    
 }
 .dropdown-content {
   
     position: absolute;
-    background-color: grey;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
     overflow-y:scroll;
     max-height: 200px;
 } 
@@ -188,6 +194,7 @@ ul li{
     background-color: #f5f5f5;
 }
 .dropdown-scroll {
+    background-color: palegoldenrod;
     max-height: 150px;  
     overflow-y:auto;
 }
@@ -197,19 +204,13 @@ ul li{
   
 .completed-task{
     display: inline-block;
-    margin-left: 150px;
+    margin-left: 80px;
 
 }
 .remaining-task{
     display:  inline-block;
-    margin-left: 150px;
+    margin-left: 45px;
 
 }
 
-
-#task-counter{
-    color: black;
-    font-size: 13px;
-    margin-left: 150px;
-}
  
