@@ -117,7 +117,7 @@ const TodoList = () => {
              
             </div>
             <ul >  
-            {filteredTodos.map((todo, index) => (
+                {filteredTodos.map((todo, index) => (
                   <li key={index}>
                     <input type="checkbox" alt=''
                       className="custom-checkbox" 
@@ -128,44 +128,48 @@ const TodoList = () => {
                       ...updatedTodos[index],
                       completed: !updatedTodos[index].completed
                       };
-                      setTodos(updatedTodos);
-                      }}
-                    />  
+                      setTodos(updatedTodos); 
+                      }} />
+                   
                         {editIndex === index ? (
                         <input
                             type="text" alt='' 
                             value={editTodo} className='custom-checkbox' 
-                            onChange={(e) => setEditTodo(e.target.value)}
-                        />
+                            onChange={(e) => setEditTodo(e.target.value)} />
+                         
                         ) : (
 
                         todo.text
                         )}
-                        <button onClick={() => handleDeleteTodo(index)} alt='' >
-                          <h3 className='delete-icon ' > 
-                            < AiFillDelete /> 
-                          </h3>
-                        </button>
-                        
-                        {editIndex === index ? (
-                        <button onClick={handleUpdateTodo} alt=''  > 
-                          <h3 className='save-icon '>
-                            <LiaSaveSolid />
-                          </h3>
-                        </button>
-                        
-                        ) : (
-
-                        <button onClick={() => handleEditTodo(index)} alt='' >
-                           <h3 className='edit-icon '> 
-                              < MdEdit /> 
+                        {editIndex !== index && (
+                          
+                          <button onClick={() => handleEditTodo(index)} alt=''>
+                            <h3 className='edit-icon   ' >
+                              <MdEdit />
                             </h3>
-                        </button>
-                         
+                          </button>
+                        )}
+
+                        {editIndex === index && (
+                           
+                          <button onClick={handleUpdateTodo} alt=''>
+                            <h3 className='save-icon after:'>
+                              <LiaSaveSolid />
+                            </h3>
+                          </button>
+                        )}
+
+                        {editIndex !== index && (
+                           
+                          <button onClick={() => handleDeleteTodo(index)} alt=''>
+                            <h3 className='delete-icon '>
+                              <AiFillDelete />
+                            </h3>
+                          </button>
                         )}
                     </li>
-                ))}
-            </ul> 
+                  ))}
+              </ul> 
                     <div className='Filters'></div>
                         <div className='dropdown'>
                             <button
@@ -187,8 +191,8 @@ const TodoList = () => {
                                         handleFilterChange('All');
                                         setShowFilterOptions(false);  
                                       }}
-                                      className={filter === 'All' ? 'active' : ''}
-                                    >
+                                      className={filter === 'All' ? 'active' : '' }
+                                         >
                                       All
                                     </a>
                                   <a
@@ -219,9 +223,9 @@ const TodoList = () => {
                                       <span id='complete-count'>{completedCount}</span>
                                   </p>
                               </div>
-                              <div className='remaning-task'>
+                              <div className='remaining-task'>
                                   <p> Total-Tasks :
-                                      <span id='tasks-counter'>{todos.length - completedCount}</span>
+                                      <span id='remaining-task'>{todos.length}</span>
                                   </p>
                               </div>
             </div>
