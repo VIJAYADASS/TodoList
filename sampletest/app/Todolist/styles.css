@@ -23,6 +23,9 @@ body{
     background-color:rgb(167 243 208);
     align-items:  center;
     text-align:  center;
+    max-width: 400px ;
+    margin: 0 auto;
+    padding: 20px;
 
 }
 
@@ -45,7 +48,7 @@ h3{
      
 }
 button{
-     
+    border: none;
     border-radius: 20px;
     color: black;
     cursor: pointer;
@@ -67,8 +70,9 @@ button{
     font-size: 15px;
     margin-bottom: 1px;
     outline:none;
-    padding: 5px;
-    width: 271px;
+    padding: 10px;
+    width: 70%;
+    margin-right: 10px;
      
 }
 .mid{
@@ -76,6 +80,12 @@ button{
     font-size: 15px;
     margin-bottom: 30px;
     margin-left: 20px;
+    margin-top: 20px;
+    align-items:  center;
+}
+.custom-checkbox{
+    margin-right: 10px;
+    cursor: pointer;
 }
 #complete-all{
     cursor: pointer;
@@ -113,6 +123,8 @@ ul li{
     justify-content:flex-end;
     width: 30px;
     height: 30px;
+    margin: 0;
+    cursor: pointer;
     
 }
 .save-icon{
@@ -121,6 +133,8 @@ ul li{
     justify-content:flex-end;
     width: 30px;
     height: 30px;
+    margin: 0;
+    cursor: pointer;
      
 } 
 .edit-icon{
@@ -129,6 +143,8 @@ ul li{
     justify-content:  flex-end ;
     width: 30px;
     height: 30px;
+    margin: 0;
+    cursor: pointer;
     
 }
 .edit-icon:not(.active) + button,
@@ -138,6 +154,7 @@ ul li{
 
 .Filters{
     margin-top: 20px;
+    text-align:  center;
 
 }
 
@@ -145,6 +162,7 @@ ul li{
     display: inline-block;
     width: 10px;
     cursor: pointer;
+    position: relative;
 }
 .dropbtn{
     background-color: rgb(214 211 209);
@@ -155,10 +173,11 @@ ul li{
     color:black;
     cursor: pointer;
     font-size: 14px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     width: 60px;
     margin-left:initial;
     margin-bottom: 6px;
+     
      
 }
 .dropdown-content a.active{
@@ -176,18 +195,21 @@ ul li{
 
 .dropdown-content a {
     display: block;
-    padding: 8px 16px;
+    padding:10px;
     text-decoration: none;
     color: black;
-    
+    cursor: pointer;
     
 }
 .dropdown-content {
-  
+    display: none;
     position: absolute;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     overflow-y:scroll;
+    max-height: 200px;
+    z-index: 1;
+    overflow-y: auto;
     max-height: 200px;
 } 
 .dropdown-content a:hover {
@@ -197,16 +219,22 @@ ul li{
 .dropdown-content.show {
     display: block;
 }  
-  
+ 
+.dropdown-scroll {
+    max-height: 200px;
+    overflow-y: auto;
+}
 .completed-task{
     display: inline-block;
     margin-left: 80px;
-
+    text-align:  center;
+    margin-top: 20px;
 }
 .remaining-task{
     display:  inline-block;
     margin-left: 45px;
-
+    text-align:  center;
+    margin-top: 20px;
 }
 
  
