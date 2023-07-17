@@ -104,7 +104,7 @@ const TodoList = () => {
                   className='add-task'
                   onChange={handleInputChange}
                   placeholder="Add your todo "/> 
-                  <button id="btn" onClick={handleAddTodo} alt= " " className='bg-green-300'>Update</button>
+                  <button id="btn" onClick={handleAddTodo} alt= " " className='bg-stone-300'>Add Todo</button>
             </div>
 
             <div className="mid"> 
