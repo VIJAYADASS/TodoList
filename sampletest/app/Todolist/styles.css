@@ -26,6 +26,7 @@ body{
     max-width: 400px ;
     margin: 0 auto;
     padding: 20px;
+    align-content:  center;
 
 }
 
@@ -84,19 +85,20 @@ button{
     align-items:  center;
 }
 .custom-checkbox{
-    margin-right: 10px;
+    margin-right: 5px;
     cursor: pointer;
+    padding: 2px;
 }
 #complete-all{
     cursor: pointer;
-    margin-left: 10px; 
+    margin-left: 5px; 
     font-size: 15px;
     padding: 5px 5px;
        
 }
 #clear-all{
     cursor: pointer;
-    margin-left: 43px; 
+    margin-left: 30px; 
     font-size: 15px;
     padding: 5px 5px;
 }
