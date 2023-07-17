@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import "./styles.css";
 import { AiFillDelete  } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
@@ -16,6 +16,9 @@ const TodoList = () => {
     const [completedCount, setCompletedCount] = useState(0);
     const [showFilterOptions, setShowFilterOptions] = useState(false);
   
+
+    const dropdownRef = useRef(null);
+
     const handleInputChange = (e) => {
       setnewTasks(e.target.value);
     };
@@ -74,6 +77,27 @@ const TodoList = () => {
       const completedTasks = todos.filter((todo) => todo.completed);
       setCompletedCount(completedTasks.length);
     }, [todos]);
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+       // console.log(event.target.val)
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+         // console.log("working")
+          setShowFilterOptions(false);
+        }
+      };
+
+      //document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('mouseup', handleClickOutside);
+
+  
+       
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        //document.addEventListener("mouseup", handleClickOutside);
+  
+      };
+    }, []);
   
     const filteredTodos = todos.filter((todo) => {
       if (filter === 'All') {
@@ -87,11 +111,13 @@ const TodoList = () => {
     });
   
     const handleFilterButtonClick = () => {
-      setShowFilterOptions((prevShowFilterOptions) => !prevShowFilterOptions);
+      setShowFilterOptions(!showFilterOptions);
     };
 
+     
+
   return (
-        <div className='container'>
+        <div  className='container'>
             <div className='todoapp'></div>
             <h2>    
                 Todo List  
@@ -109,7 +135,7 @@ const TodoList = () => {
 
             <div className="mid"> 
                
-              <h3 style={{  fontWeight : "900px", }}>< BsCheckAll size={30}/></h3>
+              <h3 >< BsCheckAll size={30}/></h3>
 
                   <p  id="complete-all"  onClick={handleCompleteAll}  > Complete All Tasks</p>
                   <p id="clear-all" onClick={handleDeleteAll}>Delete Comp Tasks</ p>
@@ -121,7 +147,7 @@ const TodoList = () => {
                   <li key={index}>
                     <input type="checkbox" alt=''
                       className="custom-checkbox" 
-                      checked={todo.completed}
+                      checked={editIndex !== index && todo.completed}
                       onChange={() => {
                       const updatedTodos = [...todos];
                       updatedTodos[index] =  {
@@ -171,14 +197,16 @@ const TodoList = () => {
                   ))}
               </ul> 
                     <div className='Filters'></div>
-                        <div className='dropdown'>
+                           
+                        <div className='dropdown' ref={dropdownRef}>
                             <button
                                 className={`dropbtn ${showFilterOptions ? 'active' : ''}`}
                                 onClick={handleFilterButtonClick}
-                                onMouseEnter={() => setShowFilterOptions(true)}
-                                // onMouseLeave={() => setShowFilterOptions(false)}
+                                onMouseMove={() => setShowFilterOptions(true)} 
+                                //onMouseUp={()=>setShowFilterOptions(false)}                                
+                                //onMouseLeave={() => setShowFilterOptions(false)}
                                 > Filter
-                              </button>
+                            </button>
                               </div>
                                 
                               <div className={`dropdown-content ${showFilterOptions ? 'show' : ''}`} 
