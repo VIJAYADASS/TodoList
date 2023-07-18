@@ -5,7 +5,7 @@ import { AiFillDelete  } from 'react-icons/ai';
 import { MdEdit } from 'react-icons/md';
 import { BsCheckAll   } from 'react-icons/bs';
 import { LiaSaveSolid } from 'react-icons/lia';
- 
+
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
@@ -24,7 +24,7 @@ const TodoList = () => {
     };
   
     const handleAddTodo = () => {
-      if (newTasks.trim() !== '') {
+      if (newTasks.trim() !== ''){
         const newTodo = {
           text : newTasks,
           completed : false
