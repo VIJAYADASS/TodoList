@@ -147,7 +147,8 @@ const TodoList = () => {
                   <li key={index}>
                     <input type="checkbox" alt=''
                       className="custom-checkbox" 
-                      checked={editIndex !== index && todo.completed}
+                      //checked={editIndex !== index && todo.completed}
+                      disabled= {editIndex === index}
                       onChange={() => {
                       const updatedTodos = [...todos];
                       updatedTodos[index] =  {
